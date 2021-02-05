@@ -1,0 +1,19 @@
+{
+  "name": "xenelectronic",
+  "version": "1.0.0",
+  "description": "",
+  "scripts": {
+    "server": "cd backend && yarn start",
+    "client": "cd frontend && yarn dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@github-personal:julianjca/XenElectronic.git"
+  },
+  "author": "Julian Christian Anderson",
+  "license": "ISC",
+  "devDependencies": {
+    "concurrently": "^5.3.0"
+  }
+}
