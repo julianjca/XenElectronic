@@ -57,9 +57,9 @@ module.exports = {
     const { id } = req.params
 
     try {
-      await models.Category.update({where: {
+      await models.Category.update({ name, updatedAt: new Date() }, {where: {
         id,
-      }},{ name, updatedAt: new Date() })
+      }})
 
       res.status(200).json({
         message: 'Success updating category.'
@@ -80,7 +80,7 @@ module.exports = {
             id,
         }
       })
-      
+
       res.status(200).json({
         message: 'Success deleting category.'
       })
