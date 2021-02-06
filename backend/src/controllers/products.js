@@ -16,7 +16,13 @@ module.exports = {
   async getById (req, res) {
     const id = req.params.id
     try {
-      const product = await knex('products').where({ id })
+      const product = await knex('products')
+      .join('categories', 'categories.id', '=', 'products.category_id')
+      .select(
+        'products.*',
+        'categories.name as category_name',
+      )
+      .where('products.id', '=', id);
 
       if (product.length === 0) {
         res.status(200).json({
@@ -27,7 +33,8 @@ module.exports = {
       res.status(200).json({
         product: product[0]
       })
-    } catch {
+    } catch(e) {
+      console.log(e)
       res.status(500).json({
         message: 'Failed getting product.'
       })
