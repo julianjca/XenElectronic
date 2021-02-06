@@ -16,22 +16,38 @@ const category = {
   name: 'Category 1'
 }
 
-afterAll(async (done) => {
-  await models.Product.destroy({ where: { id: '18bc6c31-e636-4f71-b1f8-52449dbe9951' } })
-
-	await new Promise(resolve => setTimeout(() => resolve(), 500));
-  done()
-});
-
 describe('Products Endpoints', () => {
   afterAll(async (done) => {
-    await models.Product.destroy({ where: { id: '18bc6c31-e636-4f71-b1f8-52449dbe9951' } })
+    await models.Product.destroy({ 
+      where: { 
+        id: '18bc6c31-e636-4f71-b1f8-52449dbe9951' 
+      } 
+    })
+
+    await models.Category.destroy({ 
+      where: { 
+        id: '18bc6c31-e636-4f71-b1f8-52449dbe9954' 
+      } 
+    })
   
     await new Promise(resolve => setTimeout(() => resolve(), 500));
     done()
   });
+  
   beforeAll(async () => {
-    await models.Product.create({ ...product, id: '18bc6c31-e636-4f71-b1f8-52449dbe9951', createdAt: new Date("2021-02-06T11:27:59.108Z"), updatedAt: new Date() })
+    await models.Category.create({ 
+      ...category, 
+      id: '18bc6c31-e636-4f71-b1f8-52449dbe9954', 
+      createdAt: new Date("2021-02-06T11:27:59.108Z"), 
+      updatedAt: new Date() 
+    })
+    await models.Product.create({ 
+      ...product, 
+      id: '18bc6c31-e636-4f71-b1f8-52449dbe9951', 
+      categoryId: '18bc6c31-e636-4f71-b1f8-52449dbe9954',
+      createdAt: new Date("2021-02-06T11:27:59.108Z"), 
+      updatedAt: new Date() 
+    })
   });
 
   it('should create a new product', async () => {
@@ -55,8 +71,8 @@ describe('Products Endpoints', () => {
     expect(res.body.product.productName).toEqual('Product 1')
     expect(res.body.product.productImage).toEqual('https://cdn-2.tstatic.net/palembang/foto/bank/images/xiaomi-mi-max-3_20180726_121005.jpg')
     expect(res.body.product.price).toEqual(100)
-    expect(res.body.product.categoryId).toEqual('18bc6c31-e636-4f71-b1f8-52449dbe9950')
-
+    expect(res.body.product.categoryId).toEqual('18bc6c31-e636-4f71-b1f8-52449dbe9954')
+    expect(res.body.product.category.name).toEqual('Category 1')
   })
 
   it('should update product by id 18bc6c31-e636-4f71-b1f8-52449dbe9952', async () => {
