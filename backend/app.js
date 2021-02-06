@@ -4,6 +4,7 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const { Sequelize } = require('sequelize');
+var cors = require('cors')
 
 const indexRouter = require('./src/routes/index');
 const productsRouter = require('./src/routes/products');
@@ -11,6 +12,7 @@ const categoriesRouter = require('./src/routes/categories');
 
 const app = express();
 
+app.use(cors())
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));

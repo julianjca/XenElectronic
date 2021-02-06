@@ -4,7 +4,9 @@
   "private": true,
   "scripts": {
     "start": "PORT=3030 nodemon ./bin/www",
-    "test": "jest --detectOpenHandles"
+    "test": "jest --detectOpenHandles",
+    "migrate": "sequelize db:migrate",
+    "seed": "sequelize db:seed:all"
   },
   "jest": {
     "testEnvironment": "node",
@@ -14,6 +16,7 @@
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
+    "cors": "^2.8.5",
     "debug": "~2.6.9",
     "express": "~4.16.1",
     "http-errors": "~1.6.3",
