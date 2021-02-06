@@ -3,6 +3,7 @@ const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
+const { Sequelize } = require('sequelize');
 
 const indexRouter = require('./src/routes/index');
 const productsRouter = require('./src/routes/products');
@@ -35,5 +36,12 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.json({ message: 'error' });
 });
+
+const sequelize = new Sequelize('xenelectronic', 'postgres', 'postgres', {
+  host: 'localhost',
+  dialect: 'postgres'
+});
+
+sequelize.authenticate().then(() => console.log('Connection has been established successfully.'))
 
 module.exports = app;

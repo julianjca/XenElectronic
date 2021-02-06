@@ -1,13 +1,15 @@
-const knex = require('../../knex')
+const uuid = require('uuid')
+const models = require('../../models/index')
 
 module.exports = {
   async getAll (_, res ) {
     try {
-      const products = await knex('products')
+      const products = await models.Product.findAll()
       res.status(200).json({
         products,
       })
-    } catch {
+    } catch(e) {
+      console.log(e)
       res.status(500).json({
         message: 'Failed getting product.'
       })
@@ -15,14 +17,13 @@ module.exports = {
   },
   async getById (req, res) {
     const id = req.params.id
+    console.log(id)
     try {
-      const product = await knex('products')
-      .join('categories', 'categories.id', '=', 'products.category_id')
-      .select(
-        'products.*',
-        'categories.name as category_name',
-      )
-      .where('products.id', '=', id);
+      const product = await models.Product.findAll({
+        where: {
+          id,
+        }
+      })
 
       if (product.length === 0) {
         res.status(200).json({
@@ -41,9 +42,9 @@ module.exports = {
     }
   },
   async create (req, res) {
-    const { name, price } = req.body
+    const { productName, price } = req.body
     try {
-      await knex('products').insert({ name, price })
+      await models.Product.create({ id: uuid.v4(), productName, price, createdAt: new Date(), updatedAt: new Date() })
       res.status(200).json({
         message: 'Success adding product.'
       })
@@ -55,14 +56,13 @@ module.exports = {
     }
   },
   async update (req, res) {
-    const { name, price } = req.body
+    const { productName, price } = req.body
     const { id } = req.params
 
     try {
-      await knex('products').where({ id }).update({
-        name, 
-        price,
-      })
+      await models.Product.update({where: {
+        id,
+      }},{ productName, price, updatedAt: new Date() })
 
       res.status(200).json({
         message: 'Success updating product.'
@@ -77,7 +77,12 @@ module.exports = {
     const { id } = req.params
 
     try {
-      await knex('products').where({ id }).del()
+      await models.Product.destroy(
+        {
+          where: {
+            id,
+        }
+      })
 
       res.status(200).json({
         message: 'Success deleting product.'

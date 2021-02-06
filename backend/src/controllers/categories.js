@@ -1,9 +1,10 @@
-const knex = require('../../knex')
+const models = require('../../models')
+const uuid = require('uuid')
 
 module.exports = {
   async getAll (_, res ) {
     try {
-      const categories = await knex('categories')
+      const categories = await models.Category.findAll()
       res.status(200).json({
         categories,
       })
@@ -16,7 +17,11 @@ module.exports = {
   async getById (req, res) {
     const id = req.params.id
     try {
-      const category = await knex('categories').where({ id })
+      const category = await models.Category.findAll({
+        where: {
+          id,
+        }
+      })
 
       if (category.length === 0) {
         res.status(200).json({
@@ -36,7 +41,7 @@ module.exports = {
   async create (req, res) {
     const { name } = req.body
     try {
-      await knex('categories').insert({ name })
+      await models.Category.create({ id: uuid.v4(), name, createdAt: new Date(), updatedAt: new Date() })
       res.status(200).json({
         message: 'Success adding category.'
       })
@@ -52,9 +57,9 @@ module.exports = {
     const { id } = req.params
 
     try {
-      await knex('categories').where({ id }).update({
-        name, 
-      })
+      await models.Category.update({where: {
+        id,
+      }},{ name, updatedAt: new Date() })
 
       res.status(200).json({
         message: 'Success updating category.'
@@ -69,8 +74,13 @@ module.exports = {
     const { id } = req.params
 
     try {
-      await knex('categories').where({ id }).del()
-
+      await models.Category.destroy(
+        {
+          where: {
+            id,
+        }
+      })
+      
       res.status(200).json({
         message: 'Success deleting category.'
       })
