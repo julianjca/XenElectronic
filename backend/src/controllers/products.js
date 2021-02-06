@@ -4,7 +4,13 @@ const models = require('../../models/index')
 module.exports = {
   async getAll (_, res ) {
     try {
-      const products = await models.Product.findAll()
+      const products = await models.Product.findAll({
+        include: {
+          model: models.Category,
+          as: 'category',
+          attributes:['name']
+        }
+      })
       res.status(200).json({
         products,
       })
@@ -17,12 +23,16 @@ module.exports = {
   },
   async getById (req, res) {
     const id = req.params.id
-    console.log(id)
     try {
       const product = await models.Product.findAll({
         where: {
           id,
-        }
+        },
+        include: {
+          model: models.Category,
+          as: 'category',
+          attributes:['name']
+        },
       })
 
       if (product.length === 0) {
