@@ -4,14 +4,22 @@ import useSWR from 'swr'
 
 import { Container } from '../Shared'
 import { CategoriesWrapper, StyledSection, Category, Card, CardContainer, ProductImage, ProductInfo } from './styles'
+import { useCartState, useCartDispatch } from '../../context'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
 const Products = ({ categories }) => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id)
-  const { data, error } = useSWR(`http://localhost:3030/products?categoryId=${activeCategory}`, fetcher)
+  const { data } = useSWR(`${process.env.API_URL}/products?categoryId=${activeCategory}`, fetcher)
 
-  console.log(data)
+  const state = useCartState()
+  const dispatch = useCartDispatch()
+
+  console.log(state)
+
+  const addToCart = (product) => {
+    dispatch({ type: 'ADD_ITEM', item: product })
+  }
 
   return (
     <StyledSection>
@@ -38,6 +46,7 @@ const Products = ({ categories }) => {
                 </ProductImage>
                 <ProductInfo>
                   <h2>{product.productName}</h2>
+                  <button onClick={() => addToCart(product)}>add to cart</button>
                 </ProductInfo>
               </Card>
             ))

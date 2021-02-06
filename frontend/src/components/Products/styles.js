@@ -84,5 +84,5 @@ export const ProductImage = styled.div`
 `
 
 export const ProductInfo = styled.div`
-  padding: 8px;
+  padding: 8px 14px;
 `

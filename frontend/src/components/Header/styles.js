@@ -10,8 +10,28 @@ export const Logo = styled.h1`
 `
 
 export const Flex = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+`
+
+export const CartWrapper = styled.div`
+  position: relative;
+  cursor: pointer;
+
+  span {
+    position: absolute;
+    height: 18px;
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    height: 100%;
+    justify-content: center;
+    width: 18px;
+    font-size: 10px;
+    color: white;
+    background-color: red;
+    right: -5px;
+    bottom: -2px;
+    border-radius: 50%;
+  }
 `
