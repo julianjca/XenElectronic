@@ -12,6 +12,10 @@ const product = {
   categoryId: '18bc6c31-e636-4f71-b1f8-52449dbe9950',
 }
 
+const category = {
+  name: 'Category 1'
+}
+
 afterAll(async (done) => {
   await models.Product.destroy({ where: { id: '18bc6c31-e636-4f71-b1f8-52449dbe9951' } })
 
@@ -20,6 +24,12 @@ afterAll(async (done) => {
 });
 
 describe('Products Endpoints', () => {
+  afterAll(async (done) => {
+    await models.Product.destroy({ where: { id: '18bc6c31-e636-4f71-b1f8-52449dbe9951' } })
+  
+    await new Promise(resolve => setTimeout(() => resolve(), 500));
+    done()
+  });
   beforeAll(async () => {
     await models.Product.create({ ...product, id: '18bc6c31-e636-4f71-b1f8-52449dbe9951', createdAt: new Date("2021-02-06T11:27:59.108Z"), updatedAt: new Date() })
   });
@@ -49,7 +59,7 @@ describe('Products Endpoints', () => {
 
   })
 
-  it('should update product by id 1', async () => {
+  it('should update product by id 18bc6c31-e636-4f71-b1f8-52449dbe9952', async () => {
     const res = await request(app).put('/products/18bc6c31-e636-4f71-b1f8-52449dbe9951').send({
       productName: 'test',
       price: 100,
@@ -63,13 +73,69 @@ describe('Products Endpoints', () => {
     })
   })
 
-  it('should deleting product by id 1', async () => {
+  it('should deleting product by id 18bc6c31-e636-4f71-b1f8-52449dbe9952', async () => {
     await models.Product.create({ ...product, id: '18bc6c31-e636-4f71-b1f8-52449dbe9952', createdAt: new Date("2021-02-06T11:27:59.108Z"), updatedAt: new Date() })
     const res = await request(app).delete('/products/18bc6c31-e636-4f71-b1f8-52449dbe9952')
     
     expect(res.statusCode).toEqual(200)
     expect(res.body).toEqual({
       message: 'Success deleting product.',
+    })
+  })
+})
+
+describe('Categories Endpoints', () => {
+  beforeAll(async () => {
+    await models.Category.create({ ...category, id: '18bc6c31-e636-4f71-b1f8-52449dbe9954', createdAt: new Date("2021-02-06T11:27:59.108Z"), updatedAt: new Date() })
+  });
+
+  afterAll(async (done) => {
+    await models.Category.destroy({ where: { id: '18bc6c31-e636-4f71-b1f8-52449dbe9954' } })
+  
+    await new Promise(resolve => setTimeout(() => resolve(), 500));
+    done()
+  });
+
+  it('should create a new product', async () => {
+    const res = await request(app)
+      .post('/categories')
+      .send(product)
+    expect(res.statusCode).toEqual(200)
+    expect(res.body).toEqual({ message: 'Success adding category.' })
+  })
+
+  it('should get all products', async () => {
+    const res = await request(app).get('/categories')
+    expect(res.statusCode).toEqual(200)
+  })
+
+  it('should get product by id 18bc6c31-e636-4f71-b1f8-52449dbe9954', async () => {
+    const res = await request(app).get('/categories/18bc6c31-e636-4f71-b1f8-52449dbe9954')
+
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.category.id).toEqual('18bc6c31-e636-4f71-b1f8-52449dbe9954')
+    expect(res.body.category.name).toEqual('Category 1')
+
+  })
+
+  it('should update product by id 18bc6c31-e636-4f71-b1f8-52449dbe9954', async () => {
+    const res = await request(app).put('/categories/18bc6c31-e636-4f71-b1f8-52449dbe9951').send({
+      name: 'test',
+    })
+
+    expect(res.statusCode).toEqual(200)
+    expect(res.body).toEqual({
+      message: 'Success updating category.',
+    })
+  })
+
+  it('should deleting product by id 18bc6c31-e636-4f71-b1f8-52449dbe9955', async () => {
+    await models.Category.create({ ...product, id: '18bc6c31-e636-4f71-b1f8-52449dbe9955', createdAt: new Date("2021-02-06T11:27:59.108Z"), updatedAt: new Date() })
+    const res = await request(app).delete('/categories/18bc6c31-e636-4f71-b1f8-52449dbe9955')
+    
+    expect(res.statusCode).toEqual(200)
+    expect(res.body).toEqual({
+      message: 'Success deleting category.',
     })
   })
 })
