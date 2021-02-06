@@ -5,8 +5,8 @@ const CartIcon = () => {
     <div>
        <svg 
         style={{
-          height: '25px',
-          width: '25px',
+          height: '30px',
+          width: '30px',
         }} 
         xmlns="http://www.w3.org/2000/svg" 
         viewBox="0 0 134.141 120.535" 

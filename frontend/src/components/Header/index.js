@@ -1,10 +1,18 @@
 import React from 'react'
-import CartIcon from '../CartIcon'
+import Router from 'next/router'
 
-import { StyledHeader, Logo, Flex } from './styles'
+import CartIcon from '../CartIcon'
+import { StyledHeader, Logo, Flex, CartWrapper } from './styles'
 import { Container } from '../Shared'
+import { useCartState } from '../../context'
 
 const Header = () => {
+  const state = useCartState()
+
+  const handleRedirectToCart = () => {
+    Router.push('/cart')
+  }
+
   return (
     <StyledHeader>
       <Container style={{
@@ -12,7 +20,10 @@ const Header = () => {
       }}>
         <Flex>
           <Logo>XENELECTRONIC</Logo>
-          <CartIcon />
+          <CartWrapper onClick={handleRedirectToCart}>
+            <CartIcon />
+            <span>{state.cart.length > 99 ? '99+' : state.cart.length}</span>
+          </CartWrapper>
         </Flex>
       </Container>
     </StyledHeader>
