@@ -35,39 +35,41 @@ module.exports = {
         product: product[0]
       })
     } catch(e) {
-      console.log(e)
       res.status(500).json({
         message: 'Failed getting product.'
       })
     }
   },
   async create (req, res) {
-    const { productName, price } = req.body
+    const { productName, price, productImage } = req.body
     try {
-      await models.Product.create({ id: uuid.v4(), productName, price, createdAt: new Date(), updatedAt: new Date() })
+      await models.Product.create({ id: uuid.v4(), productName, productImage, price, createdAt: new Date(), updatedAt: new Date() })
       res.status(200).json({
         message: 'Success adding product.'
       })
     } catch (e) {
-      console.log(e)
       res.status(500).json({
         message: 'Failed creating product.'
       })
     }
   },
   async update (req, res) {
-    const { productName, price } = req.body
+    const { productName, price, productImage } = req.body
     const { id } = req.params
 
     try {
-      await models.Product.update({where: {
-        id,
-      }},{ productName, price, updatedAt: new Date() })
+      await models.Product.update({ productName, price, productImage, updatedAt: new Date() }, 
+      {
+        where: {
+          id,
+        }
+      })
 
       res.status(200).json({
         message: 'Success updating product.'
       })
     } catch (e) {
+      console.log(e)
       res.status(500).json({
         message: 'Failed updating product.'
       })
