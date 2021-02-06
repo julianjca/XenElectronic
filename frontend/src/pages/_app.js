@@ -2,10 +2,11 @@ import React from 'react'
 import { Global, css } from '@emotion/react'
 
 import Header from '../components/Header'
+import { CartStateProvider } from '../context'
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <CartStateProvider>
       <Global
         styles={css`
           html, body {
@@ -17,7 +18,7 @@ function MyApp({ Component, pageProps }) {
       />
       <Header />
       <Component {...pageProps} />
-    </>
+    </CartStateProvider>
   )
 }
 

@@ -3,7 +3,7 @@ import axios from 'axios'
 import useSWR from 'swr'
 
 import { Container } from '../Shared'
-import { CategoriesWrapper, StyledSection, Category } from './styles'
+import { CategoriesWrapper, StyledSection, Category, Card, CardContainer, ProductImage, ProductInfo } from './styles'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -29,6 +29,21 @@ const Products = ({ categories }) => {
             ))
           }
         </CategoriesWrapper>
+        <CardContainer>
+          {
+            data && data.products.map(product => (
+              <Card key={product.id}>
+                <ProductImage>
+                  <img src={product.productImage} />
+                </ProductImage>
+                <ProductInfo>
+                  <h2>{product.productName}</h2>
+                </ProductInfo>
+              </Card>
+            ))
+          }
+          
+        </CardContainer>
       </Container>
     </StyledSection>
   )

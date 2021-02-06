@@ -42,7 +42,7 @@ const products = [
     productName: 'Product 5',
     productImage: 'https://cdn-2.tstatic.net/palembang/foto/bank/images/xiaomi-mi-max-3_20180726_121005.jpg',
     price: 20,
-    categoryId: '080115fd-fb6b-436a-8efe-0a8f405ff2ae',
+    categoryId: '06e3875c-b183-4f7e-8956-41cb7043bf08',
     createdAt: new Date(),
     updatedAt: new Date(),
   },
