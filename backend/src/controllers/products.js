@@ -2,15 +2,32 @@ const uuid = require('uuid')
 const models = require('../../models/index')
 
 module.exports = {
-  async getAll (_, res ) {
-    try {
-      const products = await models.Product.findAll({
+  async getAll (req, res ) {
+    console.log(req.query.categoryId)
+    let options 
+
+    if(req.query.categoryId) {
+      options = {
         include: {
           model: models.Category,
           as: 'category',
           attributes:['name']
+        },
+        where: {
+          categoryId: req.query.categoryId,
         }
-      })
+      }
+    } else {
+      options = {
+        include: {
+          model: models.Category,
+          as: 'category',
+          attributes:['name']
+        },
+      }
+    }
+    try {
+      const products = await models.Product.findAll(options)
       res.status(200).json({
         products,
       })
