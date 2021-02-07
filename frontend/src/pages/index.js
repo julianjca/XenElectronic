@@ -5,7 +5,6 @@ import Image from 'next/image'
 import Products from '../components/Products'
 
 export default function Home({ categories }) {
-  console.log(categories)
   return (
     <div>
       <Head>
@@ -21,7 +20,6 @@ export default function Home({ categories }) {
 export const getServerSideProps = async () => {
   const res = await axios.get(`${process.env.API_URL}/categories`)
 
-  console.log(res.data)
 
   return {
     props: {

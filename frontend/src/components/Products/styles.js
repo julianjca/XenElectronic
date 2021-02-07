@@ -37,17 +37,11 @@ export const Card = styled.div`
   margin: auto;
   overflow: hidden;
   width: 100%;
-  height: 350px;
+  /* height: 350px; */
   background: #ffffff;
   box-shadow: 5px 5px 15px #1c1c1c40;
   border-radius: 10px;
-
-  @media (min-width: 1200px) {
-    height: 500px;
-  }
-  @media (min-width: 1400px) {
-    height: 450px;
-  }
+  padding-bottom: 20px;
 `
 
 export const CardContainer = styled.div`
@@ -85,4 +79,13 @@ export const ProductImage = styled.div`
 
 export const ProductInfo = styled.div`
   padding: 8px 14px;
+
+  h2 {
+    margin-bottom: 10px;
+    font-size: 1rem;
+
+    @media (min-width: 720px) {
+      font-size: 1.4rem;
+    }
+  }
 `

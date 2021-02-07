@@ -2,6 +2,11 @@ import styled from '@emotion/styled'
 
 export const StyledHeader = styled.header`
   height: 100px;
+
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
 `
 
 export const Logo = styled.h1`
