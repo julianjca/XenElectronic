@@ -5,7 +5,7 @@
   "scripts": {
     "server": "cd backend && yarn start",
     "client": "cd frontend && yarn dev",
-    "test-backend": "cd backend && yarn coverage",
+    "test": "cd backend && yarn coverage && exit 0",
     "dev": "concurrently \"npm run server\" \"npm run client\""
   },
   "repository": {
@@ -18,9 +18,5 @@
     "concurrently": "^5.3.0",
     "pre-push": "^0.1.1"
   },
-  "pre-push": [
-    "foo",
-    "bar",
-    "test"
-  ]
+  "prepush": "test"
 }
