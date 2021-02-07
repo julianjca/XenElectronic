@@ -1,4 +1,3 @@
-'use strict';
 module.exports = {
   up: async (queryInterface, Sequelize) => {
     await queryInterface.createTable('Products', {
@@ -19,7 +18,7 @@ module.exports = {
       },
       categoryId: {
         type: Sequelize.UUID,
-        references: {         // User belongsTo Company 1:1
+        references: { // User belongsTo Company 1:1
           model: 'Categories',
           key: 'id'
         }
@@ -34,7 +33,7 @@ module.exports = {
       }
     });
   },
-  down: async (queryInterface, Sequelize) => {
+  down: async (queryInterface) => {
     await queryInterface.dropTable('Products');
   }
 };

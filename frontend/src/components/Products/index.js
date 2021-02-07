@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
+import PropTypes from 'prop-types'
 
 import { Button, Container } from '../Shared'
 import { CategoriesWrapper, StyledSection, Category, Card, CardContainer, ProductImage, ProductInfo } from './styles'
-import { useCartState, useCartDispatch } from '../../context'
+import { useCartDispatch } from '../../context'
 
 const fetcher = url => axios.get(url).then(res => res.data)
 
@@ -12,7 +13,6 @@ const Products = ({ categories }) => {
   const [activeCategory, setActiveCategory] = useState(categories[0].id)
   const { data } = useSWR(`${process.env.API_URL}/products?categoryId=${activeCategory}`, fetcher)
 
-  const state = useCartState()
   const dispatch = useCartDispatch()
 
   const addToCart = (product) => {
@@ -53,6 +53,15 @@ const Products = ({ categories }) => {
       </Container>
     </StyledSection>
   )
+}
+
+Products.propTypes = {
+  categories: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    productName: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    categoryId: PropTypes.string.isRequired,
+  }))
 }
 
 export default Products

@@ -1,4 +1,5 @@
 import React from 'react'
+import PropTypes from 'prop-types'
 
 import { Card, InputWrapper, Input, Label, Grid } from './styles'
 import { Button } from '../Shared'
@@ -36,6 +37,11 @@ const Pay = ({ totalPrice, pay }) => {
       </div>
     </Card>
   )
+}
+
+Pay.propTypes = {
+  totalPrice: PropTypes.number.isRequired,
+  pay: PropTypes.func.isRequired,
 }
 
 export default Pay

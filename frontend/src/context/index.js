@@ -1,8 +1,10 @@
 import React from "react";
+import PropTypes from 'prop-types'
 
 const CartStateContext = React.createContext();
 const CartDispatchContext = React.createContext();
 
+// eslint-disable-next-line consistent-return
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM": {
@@ -52,6 +54,10 @@ const CartStateProvider = ({ children }) => {
     </CartStateContext.Provider>
   );
 };
+
+CartStateProvider.propTypes ={ 
+  children: PropTypes.element,
+}
 
 const useCartState = () => {
   const context = React.useContext(CartStateContext);
