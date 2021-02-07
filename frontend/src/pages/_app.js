@@ -1,10 +1,11 @@
 import React from 'react'
 import { Global, css } from '@emotion/react'
+import PropTypes from 'prop-types'
 
 import Header from '../components/Header'
 import { CartStateProvider } from '../context'
 
-function MyApp({ Component, pageProps }) {
+const MyApp = ({ Component, pageProps }) => {
   return (
     <CartStateProvider>
       <Global
@@ -24,6 +25,11 @@ function MyApp({ Component, pageProps }) {
       <Component {...pageProps} />
     </CartStateProvider>
   )
+}
+
+MyApp.propTypes = {
+  Component: PropTypes.any,
+  pageProps: PropTypes.object,
 }
 
 export default MyApp

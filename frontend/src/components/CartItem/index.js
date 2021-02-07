@@ -1,5 +1,6 @@
 import React from 'react'
 import { css } from '@emotion/react'
+import PropTypes from 'prop-types'
 
 import { Card, ProductImageWrapper, ProductName, ProductCount } from './styles'
 import { Button } from '../Shared'
@@ -45,6 +46,17 @@ const CartItem = ({ item }) => {
       </div>
     </Card>
   )
+}
+
+CartItem.propTypes = {
+  item: PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    productName: PropTypes.string.isRequired,
+    price: PropTypes.number.isRequired,
+    categoryId: PropTypes.string.isRequired,
+    count: PropTypes.number,
+    productImage: PropTypes.string,
+  })
 }
 
 export default CartItem

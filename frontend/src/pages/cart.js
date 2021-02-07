@@ -2,7 +2,7 @@ import React from 'react'
 import styled from '@emotion/styled'
 import Router from 'next/router'
 
-import { useCartState, useCartDispatch } from '../context'
+import { useCartState } from '../context'
 import { Container, Button } from '../components/Shared'
 import CartItem from '../components/CartItem'
 
@@ -34,7 +34,6 @@ const TotalPriceWrapper = styled.div`
 
 const CartPage = () => {
   const state = useCartState()
-  const dispatch = useCartDispatch()
 
   const totalPrice = state.cart.reduce((a, b) => {
     return a + b.price * b.count;
