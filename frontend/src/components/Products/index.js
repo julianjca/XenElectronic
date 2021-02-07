@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import axios from 'axios'
 import useSWR from 'swr'
 
-import { Container } from '../Shared'
+import { Button, Container } from '../Shared'
 import { CategoriesWrapper, StyledSection, Category, Card, CardContainer, ProductImage, ProductInfo } from './styles'
 import { useCartState, useCartDispatch } from '../../context'
 
@@ -14,8 +14,6 @@ const Products = ({ categories }) => {
 
   const state = useCartState()
   const dispatch = useCartDispatch()
-
-  console.log(state)
 
   const addToCart = (product) => {
     dispatch({ type: 'ADD_ITEM', item: product })
@@ -46,12 +44,11 @@ const Products = ({ categories }) => {
                 </ProductImage>
                 <ProductInfo>
                   <h2>{product.productName}</h2>
-                  <button onClick={() => addToCart(product)}>add to cart</button>
+                  <Button onClick={() => addToCart(product)}>add to cart</Button>
                 </ProductInfo>
               </Card>
             ))
           }
-          
         </CardContainer>
       </Container>
     </StyledSection>

@@ -1,5 +1,6 @@
 import React from 'react'
 import Router from 'next/router'
+import Link from 'next/link'
 
 import CartIcon from '../CartIcon'
 import { StyledHeader, Logo, Flex, CartWrapper } from './styles'
@@ -19,10 +20,18 @@ const Header = () => {
         height: '100%',
       }}>
         <Flex>
-          <Logo>XENELECTRONIC</Logo>
+          <Link href="/">
+            <a>
+              <Logo>XENELECTRONIC</Logo>
+            </a>
+          </Link>
           <CartWrapper onClick={handleRedirectToCart}>
             <CartIcon />
-            <span>{state.cart.length > 99 ? '99+' : state.cart.length}</span>
+            {
+              state.cart.length > 0 && (
+                <span>{state.cart.length > 99 ? '99+' : state.cart.length}</span>
+              )
+            }
           </CartWrapper>
         </Flex>
       </Container>

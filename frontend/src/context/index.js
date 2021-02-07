@@ -6,10 +6,35 @@ const CartDispatchContext = React.createContext();
 const reducer = (state, action) => {
   switch (action.type) {
     case "ADD_ITEM": {
-      return { cart: [...state.cart].concat(action.item) };
+      const itemIndex = [...state.cart].findIndex(item => item.id === action.item.id)
+      const newCart = [...state.cart]
+
+      if (itemIndex > -1) {
+        newCart[itemIndex].count += 1
+      } else {
+        newCart.push({ ...action.item, count: 1 })
+      }
+
+      return { cart: newCart };
     }
     case "REMOVE_ITEM": {
-      return { cart: [...state.cart] };
+      const itemIndex = [...state.cart].findIndex(item => item.id === action.item.id)
+      let newCart = [...state.cart]
+
+      if (itemIndex > -1) {
+        if (newCart[itemIndex].count > 1) {
+          newCart[itemIndex].count -= 1
+        } else {
+          newCart = newCart.filter(item => {
+            return item.id !== action.item.id
+          } )
+        }
+      }
+
+      return { cart: newCart };
+    }
+    case "CLEAR_CART": {
+      return { cart: [] };
     }
     default:
       console.log("error");
