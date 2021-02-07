@@ -113,3 +113,14 @@ npm run coverage
   - [Sequelize](https://sequelize.org/) - ORM
   - [Jest](https://jestjs.io/) - Testing
   - [Postgres](https://www.postgresql.org/) - Database
+
+### App screenshots
+
+#### Coverage
+![coverage](./screenshots/coverage.png)
+
+#### Frontend App
+![products](./screenshots/products.png)
+![cart](./screenshots/cart.png)
+![pay](./screenshots/pay.png)
+![thank you](./screenshots/thank_you.png)
