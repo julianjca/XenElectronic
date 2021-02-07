@@ -6,12 +6,14 @@
     "start": "PORT=3030 nodemon ./bin/www",
     "test": "jest --detectOpenHandles",
     "migrate": "sequelize db:migrate",
-    "seed": "sequelize db:seed:all"
+    "seed": "sequelize db:seed:all",
+    "coverage": "jest --detectOpenHandles --coverage"
   },
   "jest": {
     "testEnvironment": "node",
     "coveragePathIgnorePatterns": [
-      "/node_modules/"
+      "/node_modules/",
+      "./models" 
     ]
   },
   "engines": {
@@ -38,6 +40,7 @@
     "eslint-plugin-fp": "^2.3.0",
     "eslint-plugin-node": "^11.1.0",
     "jest": "^26.6.3",
+    "nyc": "^15.1.0",
     "sequelize-cli": "^6.2.0",
     "supertest": "^6.1.3"
   }

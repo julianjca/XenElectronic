@@ -1,10 +1,9 @@
-const createError = require('http-errors');
 const express = require('express');
 const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
-const { Sequelize } = require('sequelize');
-var cors = require('cors')
+// const { Sequelize } = require('sequelize');
+const cors = require('cors')
 
 const indexRouter = require('./src/routes/index');
 const productsRouter = require('./src/routes/products');
@@ -23,27 +22,11 @@ app.use('/', indexRouter);
 app.use('/products', productsRouter);
 app.use('/categories', categoriesRouter);
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// const sequelize = new Sequelize('xenelectronic', 'postgres', 'postgres', {
+//   host: 'localhost',
+//   dialect: 'postgres'
+// });
 
-// error handler
-app.use(function(err, req, res) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
-
-  // render the error page
-  res.status(err.status || 500);
-  res.json({ message: 'error' });
-});
-
-const sequelize = new Sequelize('xenelectronic', 'postgres', 'postgres', {
-  host: 'localhost',
-  dialect: 'postgres'
-});
-
-sequelize.authenticate().then(() => console.log('Connection has been established successfully.'))
+// sequelize.authenticate().then(() => console.log('Connection has been established successfully.'))
 
 module.exports = app;

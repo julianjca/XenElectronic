@@ -3,8 +3,6 @@ const app = require('../app')
 
 const models = require('../models')
 
-// https://github.com/knex/knex/issues/2686
-
 const product = {
   productName: 'Product 1',
   productImage: 'https://cdn-2.tstatic.net/palembang/foto/bank/images/xiaomi-mi-max-3_20180726_121005.jpg',
@@ -15,6 +13,14 @@ const product = {
 const category = {
   name: 'Category 1'
 }
+
+describe('Main API is working', () => {
+  it('Should return API is ready', async () => {
+    const res = await request(app).get('/')
+    expect(res.statusCode).toEqual(200)
+    expect(res.body.text).toEqual('API ready')
+  })
+})
 
 describe('Products Endpoints', () => {
   afterAll(async (done) => {
@@ -79,7 +85,6 @@ describe('Products Endpoints', () => {
     const res = await request(app).put('/products/18bc6c31-e636-4f71-b1f8-52449dbe9951').send({
       productName: 'test',
       price: 100,
-      productName: '',
       productImage: ''
     })
 
