@@ -3,7 +3,6 @@ const models = require('../../models/index')
 
 module.exports = {
   async getAll (req, res ) {
-    console.log(req.query.categoryId)
     let options 
 
     if(req.query.categoryId) {
@@ -32,7 +31,6 @@ module.exports = {
         products,
       })
     } catch(e) {
-      console.log(e)
       res.status(500).json({
         message: 'Failed getting product.'
       })
@@ -68,9 +66,9 @@ module.exports = {
     }
   },
   async create (req, res) {
-    const { productName, price, productImage } = req.body
+    const { productName, price, productImage, categoryId } = req.body
     try {
-      await models.Product.create({ id: uuid.v4(), productName, productImage, price, createdAt: new Date(), updatedAt: new Date() })
+      await models.Product.create({ id: uuid.v4(), productName, categoryId, productImage, price, createdAt: new Date(), updatedAt: new Date() })
       res.status(200).json({
         message: 'Success adding product.'
       })
@@ -96,7 +94,6 @@ module.exports = {
         message: 'Success updating product.'
       })
     } catch (e) {
-      console.log(e)
       res.status(500).json({
         message: 'Failed updating product.'
       })

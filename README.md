@@ -61,12 +61,18 @@ Make sure you have sequelize-cli installed.
 
 Migration
 ```
-sequelize db:migrate
+cd backend
+yarn migrate
+or 
+npm run migrate
 ```
 
 Seed
 ```
-sequelize db:seed:all
+cd backend
+yarn seed
+or 
+npm run seed
 ```
 
 
@@ -86,6 +92,17 @@ cd frontend
 yarn test
 or 
 npm run test
+```
+
+Back end coverage
+
+*I am using jest so jest has built in coverage feature*
+`--coverage`
+```
+cd backend
+yarn coverage
+or 
+npm run coverage
 ```
 
 ## Built With
