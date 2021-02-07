@@ -49,11 +49,15 @@ or
 npm install
 ```
 
-Run the app
+Create .env.local on the front end
 ```
-yarn dev 
-or 
-npm run dev
+cd frontend
+touch .env.local
+```
+
+Fill it with
+```
+API_URL = http://localhost:3030
 ```
 
 ### Migration and Seeding the back end
@@ -75,20 +79,18 @@ or
 npm run seed
 ```
 
+### Run the app
+```
+yarn dev 
+or 
+npm run dev
+```
 
 ## Running the tests
 
-Front end test
-```
-cd frontend
-yarn test
-or 
-npm run test
-```
-
 Back end test
 ```
-cd frontend
+cd backend
 yarn test
 or 
 npm run test
