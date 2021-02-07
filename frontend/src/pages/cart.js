@@ -41,8 +41,7 @@ const CartPage = () => {
   }, 0);
 
   const checkOut = () => {
-    Router.push('/thank-you')
-    dispatch({ type: 'CLEAR_CART' })
+    Router.push('/pay')
   }
   
   return (
